@@ -1,1 +1,2 @@
-** Inventory with Django and Bootstrap **
+Inventory with Django and Bootstrap
+===================================
