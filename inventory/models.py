@@ -18,7 +18,7 @@ class InventoryType(models.Model):
         return force_bytes("%s" % (self.name))
 
     
-class Company(models.Model):
+class Manufacturer(models.Model):
     """ Models that will store the companies. """
     created = models.DateTimeField(default=timezone.now)
     name = models.CharField(max_length=255)
