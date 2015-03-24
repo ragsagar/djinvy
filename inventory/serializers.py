@@ -7,34 +7,37 @@ from .models import (InventoryItem, InventoryType, Manufacturer,
 class InventoryItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = InventoryItem
-        fields = ['code', 'name', 'type', 'description', 'type',
-                  'manufacturer', 'size']
+        fields = ['code', 'type', 'description', 'type',
+                  'manufacturer', 'size', 'created', 'created_by',
+                  'pk',]
         read_only_fields = ['created', 'created_by', 'pk']
 
 
 class InventoryTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = InventoryType
-        fields = ['name']
+        fields = ['name', 'created', 'created_by', 'pk']
         read_only_fields = ['created', 'created_by', 'pk']
 
 
 class ManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manufacturer
-        fields = ['name']
+        fields = ['name', 'created', 'created_by', 'pk']
         read_only_fields = ['created', 'created_by', 'pk']
 
 
 class InMovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = InMovement
-        fields = ['date', 'quantity', 'total_price', 'inventory']
+        fields = ['date', 'quantity', 'total_price', 'inventory',
+                  'created', 'created_by', 'pk']
         read_only_fields = ['created', 'created_by', 'pk']
 
         
 class OutMovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = OutMovement
-        fields = ['date', 'quantity', 'total_price', 'inventory']
+        fields = ['date', 'quantity', 'total_price', 'inventory',
+                  'created', 'created_by', 'pk']
         read_only_fields = ['created', 'created_by', 'pk']
