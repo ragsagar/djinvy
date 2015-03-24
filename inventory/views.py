@@ -5,12 +5,16 @@ from braces.views import LoginRequiredMixin
 from rest_framework.generics import (RetrieveUpdateDestroyAPIView,
                                      ListCreateAPIView)
 
-from .models import InventoryItem
+from .models import (InventoryItem, InMovement, OutMovement, Manufacturer,
+                     InventoryType)
+from .serializers import (InventoryItemSerializer, InMovementSerializer,
+                          OutMovementSerializer, InventoryTypeSerializer,
+                          ManufacturerSerializer)
 
 
 class CreateInventoryView(LoginRequiredMixin, CreateView):
     """ View to create new inventory items. """
-    model = Inventory
+    model = InventoryItem
     fields = ('code', 'name')
 
     def form_valid(self, form):
@@ -23,7 +27,7 @@ class CreateInventoryView(LoginRequiredMixin, CreateView):
 
 class UpdateInventoryView(LoginRequiredMixin, UpdateView):
     """ View to update inventory items. """
-    model = Inventory
+    model = InventoryItem
     fields = ('code', 'name')
 
 
@@ -35,6 +39,9 @@ class InventoryItemDetailAPIView(RetrieveUpdateDestroyAPIView):
 class InventoryItemListAPIView(ListCreateAPIView):
     queryset = InventoryItem.objects.all()
     serializer_class = InventoryItemSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
     
 class InMovementDetailAPIView(RetrieveUpdateDestroyAPIView):
@@ -55,3 +62,26 @@ class OutMovementListAPIView(ListCreateAPIView):
 class OutMovementDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = OutMovement.objects.all()
     serializer_class = OutMovementSerializer
+
+
+class ManufacturerDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Manufacturer.objects.all()
+    serializer_class = ManufacturerSerializer
+
+
+class ManufacturerListAPIView(ListCreateAPIView):
+    queryset = Manufacturer.objects.all()
+    serializer_class = ManufacturerSerializer
+
+
+class InventoryTypeDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = InventoryType.objects.all()
+    serializer_class = InventoryTypeSerializer
+
+    
+class InventoryTypeListAPIView(ListCreateAPIView):
+    queryset = InventoryType.objects.all()
+    serializer_class = InventoryTypeSerializer
+    
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
