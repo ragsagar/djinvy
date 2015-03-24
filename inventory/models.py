@@ -9,6 +9,8 @@ from model_utils import Choices
 class InventoryType(models.Model):
     """ Different types of inventory will be kept here. """
     created = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                   related_name='inventory_types')
     name = models.CharField(max_length=255)
 
     class Meta:
@@ -21,6 +23,8 @@ class InventoryType(models.Model):
 class Manufacturer(models.Model):
     """ Models that will store the companies. """
     created = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                   related_name='manufacturers')
     name = models.CharField(max_length=255)
 
     class Meta:
@@ -34,7 +38,7 @@ class InventoryItem(models.Model):
     """ Model to keep each inventory item. """
     created = models.DateTimeField(default=timezone.now)
     code = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
     type = models.ForeignKey(InventoryType, related_name='inventory_items')
     manufacturer = models.ForeignKey(Manufacturer,
                                      related_name='inventory_items')
@@ -52,11 +56,13 @@ class InventoryItem(models.Model):
 class InMovement(models.Model):
     """ Model for tracking in movements of an inventory item. """
     created = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                   related_name='in_movements')
     date = models.DateField()
     quantity = models.FloatField()
     unit_price = models.DecimalField(max_digits=20, decimal_places=2)
     total_price = models.DecimalField(max_digits=20, decimal_places=2)
-    inventory = models.ForeignKey(Inventory, related_name='in_movements')
+    inventory_item = models.ForeignKey(InventoryItem, related_name='in_movements')
 
     class Meta:
         ordering = ['date']
@@ -68,11 +74,13 @@ class InMovement(models.Model):
 class OutMovement(models.Model):
     """ Model for tracking out movements of an inventory item. """
     created = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                   related_name='out_movements')
     date = models.DateField()
     quantity = models.FloatField()
     unit_price = models.DecimalField(max_digits=20, decimal_places=2)
     total_price = models.DecimalField(max_digits=20, decimal_places=2)
-    inventory = models.ForeignKey(Inventory, related_name='out_movements')
+    inventory_item = models.ForeignKey(InventoryItem, related_name='out_movements')
 
     class Meta:
         ordering = ['date']
