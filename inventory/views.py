@@ -52,11 +52,17 @@ class InMovementDetailAPIView(RetrieveUpdateDestroyAPIView):
 class InMovementListAPIView(ListCreateAPIView):
     queryset = InMovement.objects.all()
     serializer_class = InMovementSerializer
+    
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class OutMovementListAPIView(ListCreateAPIView):
     queryset = OutMovement.objects.all()
     serializer_class = OutMovement
+    
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class OutMovementDetailAPIView(RetrieveUpdateDestroyAPIView):
@@ -72,6 +78,9 @@ class ManufacturerDetailAPIView(RetrieveUpdateDestroyAPIView):
 class ManufacturerListAPIView(ListCreateAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
+    
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class InventoryTypeDetailAPIView(RetrieveUpdateDestroyAPIView):
