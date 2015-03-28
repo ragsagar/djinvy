@@ -1,16 +1,16 @@
 module.exports = {
     context: __dirname + '/angular/app/',
-    entry: './app.js',
+    entry: './main.js',
     output: {
 	path: 'assets/js/',
 	filename: 'bundle.js'
     },
     module: {
 	loaders: [
-	    { test: /\.coffee$/, loader: "coffee" }
+	    { test: /\.coffee$/, loader: "coffee-loader" }
 	]
     },
     resolve: {
-	extensions: ["", ".web.coffee", ".web.js", ".coffee", ".js"]
+	extensions: ["", ".coffee", ".js"]
     }
 };
