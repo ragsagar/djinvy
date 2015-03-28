@@ -1,4 +1,4 @@
-angular = require('angular')
+
 ngModule = angular.module('app', ['ui.router'])
 
 ngModule.config ($urlRouterProvider, $rootScope) ->
