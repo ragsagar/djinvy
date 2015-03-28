@@ -29,14 +29,30 @@ ngModule.config ($httpProvider, $stateProvider, $urlRouterProvider, $interpolate
 
 ngModule.run () ->
 
-ngModule.controller('HomeCtrl', ($scope) ->
-        $scope.items = [
-                {name: 'Milk'},
-                {name: 'Eggs'},
-                ]
-        console.log("here")
+ngModule.controller('HomeCtrl', ($scope, InventoryModel) ->
+
+        getItems = () ->
+                InventoryModel.all()
+                        .then((result) ->
+                                console.log(result)
+                                $scope.items = result.data
+                                )
+        getItems()
+        
         return null
 )
 
+ngModule.service('InventoryModel', ($http) ->
 
+        getUrl = () ->
+                return '/inventory/items/'
+
+        getUrlForId = (itemId) ->
+                return getUrl() + itemId
+
+        @.all = () ->
+                return $http.get(getUrl())
+                
+        @
+)
 module.exports = ngModule
