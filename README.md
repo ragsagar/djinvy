@@ -1,2 +1,2 @@
-Inventory with Django and Bootstrap
-===================================
+Inventory Management System with Django and AngularJS
+====================================================
