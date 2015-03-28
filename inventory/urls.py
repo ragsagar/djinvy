@@ -3,10 +3,14 @@ from django.conf.urls import patterns, url
 from .views import (InventoryItemListAPIView, InventoryItemDetailAPIView,
                     InMovementListAPIView, OutMovementListAPIView,
                     InventoryTypeListAPIView, InventoryTypeDetailAPIView,
-                    ManufacturerListAPIView, ManufacturerDetailAPIView)
+                    ManufacturerListAPIView, ManufacturerDetailAPIView,
+                    InventoryHomeView)
 
 
 urlpatterns = patterns('',
+                       url(r'^$',
+                           InventoryHomeView.as_view(),
+                           name='inventory_home'),
                        url(r'^items/$',
                            InventoryItemListAPIView.as_view(),
                            name='inventory_items_api'),

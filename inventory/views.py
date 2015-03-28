@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, DetailView
+from django.views.generic import TemplateView
 
 from braces.views import LoginRequiredMixin
 from rest_framework.generics import (RetrieveUpdateDestroyAPIView,
@@ -12,24 +12,9 @@ from .serializers import (InventoryItemSerializer, InMovementSerializer,
                           ManufacturerSerializer)
 
 
-class CreateInventoryView(LoginRequiredMixin, CreateView):
-    """ View to create new inventory items. """
-    model = InventoryItem
-    fields = ('code', 'name')
-
-    def form_valid(self, form):
-        """ Save the user who is creating the inventory. """
-        self.object = form.save(commit=False)
-        self.object.created_by = self.request.user
-        self.object.save()
-        return redirect(self.object.get_absolute_url())
-
-
-class UpdateInventoryView(LoginRequiredMixin, UpdateView):
-    """ View to update inventory items. """
-    model = InventoryItem
-    fields = ('code', 'name')
-
+class InventoryHomeView(TemplateView):
+    """ View that will render inventory home template. """
+    template_name = 'inventory/home.html'
 
 class InventoryItemDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = InventoryItem.objects.all()
