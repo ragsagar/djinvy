@@ -22,5 +22,8 @@
     "ui-router": "0.0.1",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.7.0"
+  },
+  "devDependencies": {
+    "coffee-loader": "^0.7.2"
   }
 }
