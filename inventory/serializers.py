@@ -5,11 +5,14 @@ from .models import (InventoryItem, InventoryType, Manufacturer,
 
 
 class InventoryItemSerializer(serializers.ModelSerializer):
+    type_name = serializers.ReadOnlyField(source='type.name')
+    manufacturer_name = serializers.ReadOnlyField(source='manufacturer.name')
+    
     class Meta:
         model = InventoryItem
         fields = ['code', 'type', 'description', 'type',
                   'manufacturer', 'size', 'created', 'created_by',
-                  'pk',]
+                  'pk', 'type_name', 'manufacturer_name']
         read_only_fields = ['created', 'created_by', 'pk']
 
 
