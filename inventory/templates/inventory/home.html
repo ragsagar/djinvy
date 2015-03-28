@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1> Sample </h2>
+<div class="row-fluid" ng-app="app">
+  <div class="col-md-12">
+    <div ng-view>
+      <table class="table table-condensed" ng-controller="HomeCtrl">
+	<tbody>
+	  {% block verbatim %}
+	  <tr ng-repeat="item in items">
+	    <td><[ item.name ]></td>
+	  </tr>
+	  {% endblock %}
+	</tbody>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}

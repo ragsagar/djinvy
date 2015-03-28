@@ -1,2 +1,4 @@
 var angular = require('angular')
-require('./app.coffee')
+
+
+var ngModule = require('./app.coffee')
