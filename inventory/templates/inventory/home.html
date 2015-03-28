@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row-fluid" ng-app="app">
-  <div class="col-md-12">
+<div class="row" ng-app="app">
+  <div class="col-md-6">
     <div ng-view>
-      <table class="table table-condensed" ng-controller="HomeCtrl">
-	<tbody>
-	  {% block verbatim %}
+      <table class="table table-condensed table-striped" ng-controller="HomeCtrl">	<tbody>
 	  <tr ng-repeat="item in items">
-	    <td><[ item.name ]></td>
+	    <td ng-bind="item.code"></td>
+	    <td ng-bind="item.description"></td>
+	    <td ng-bind="item.type_name"></td>
+	    <td ng-bind="item.manufacturer_name"></td>
 	  </tr>
-	  {% endblock %}
 	</tbody>
       </table>
     </div>
