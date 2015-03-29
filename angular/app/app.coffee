@@ -1,4 +1,4 @@
-ngModule = angular.module('app', ['ui.router'])
+ngModule = angular.module('app', ['ui.router', 'ngAnimate'])
 ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$interpolateProvider', ($httpProvider, $stateProvider, $urlRouterProvider, $interpolateProvider) ->
 
         $stateProvider
@@ -7,7 +7,12 @@ ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$inte
                         controller: 'InventoryListCtrl',
                         templateUrl: '/static/angular/templates/list_inventory.html'
                         }
-                .state 'inventory_list.item', {
+                .state 'create_inventory', {
+                        url: '/create',
+                        controller: 'CreateInventoryCtrl',
+                        templateUrl: '/static/angular/templates/inventory_create_form.html',
+                        }
+                .state 'inventory_item', {
                         url: '/:item',
                         controller: 'InventoryDetailCtrl',
                         templateUrl: '/static/angular/templates/inventory_item.html',
@@ -35,20 +40,7 @@ ngModule.run () ->
 
 ngModule.controller('InventoryListCtrl', require('./inventory_list_controller.coffee'))
 ngModule.controller('InventoryDetailCtrl', require('./inventory_detail_controller.coffee'))
+ngModule.controller('CreateInventoryCtrl', require('./create_inventory_controller.coffee'))
         
-ngModule.service('InventoryModel', ['$http', ($http) ->
-
-        getUrl = () ->
-                return '/inventory/items/'
-
-        getUrlForId = (itemId) ->
-                return getUrl() + itemId
-
-        @.all = () ->
-                return $http.get(getUrl())
-
-        @.fetch = (itemId) ->
-                return $http.get(getUrlForId(itemId))
-        @
-])
+ngModule.service('InventoryModel', require('./inventory_service.coffee'))
 module.exports = ngModule
