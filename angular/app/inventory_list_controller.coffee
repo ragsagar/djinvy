@@ -11,7 +11,7 @@ module.exports = ['$scope', '$state', 'InventoryModel', ($scope, $state, Invento
                 for item in $scope.items
                         item.selected = false
                         item.selected = true if selected_item is item
-                $state.go('inventory_list.item', {item: item.pk})
+                $state.go('inventory_item', {item: item.pk})
                 return
 
         @
