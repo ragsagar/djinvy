@@ -33,33 +33,8 @@ ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$inte
 
 ngModule.run () ->
 
-ngModule.controller('InventoryListCtrl', ['$scope', 'InventoryModel', ($scope, InventoryModel) ->
-
-        getItems = () ->
-                InventoryModel.all()
-                        .then((result) ->
-                                $scope.items = result.data
-                                )
-        getItems()
-
-        $scope.selectItem = (selected_item) ->
-                for item in $scope.items
-                        item.selected = false
-                        item.selected = true if selected_item is item
-                return
-
-        @
-])
-
-ngModule.controller('InventoryDetailCtrl', ['$scope', '$stateParams', 'InventoryModel', ($scope, $stateParams, InventoryModel) ->
-        getItem = (item_pk) ->
-                InventoryModel.fetch(item_pk)
-                        .then((result) ->
-                                $scope.item = result.data
-                                )
-        getItem($stateParams.item)
-        @
-])
+ngModule.controller('InventoryListCtrl', require('./inventory_list_controller.coffee'))
+ngModule.controller('InventoryDetailCtrl', require('./inventory_detail_controller.coffee'))
         
 ngModule.service('InventoryModel', ['$http', ($http) ->
 
