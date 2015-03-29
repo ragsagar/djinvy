@@ -1,9 +1,9 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <table class="table table-condensed table-striped table-hover">
       <tbody>
 	<tr ng-repeat="item in items" ng-click="selectItem(item)" ng-class="{'active': item.selected}">
-	  <td><a href="#/list/<[ item.pk ]>"><[ item.code ]></a></td>
+	  <td><a ui-sref="inventory_item({item: item.pk})"><[ item.code ]></a></td>
 	  <td ng-bind="item.description"></td>
 	  <td ng-bind="item.type_name"></td>
 	  <td ng-bind="item.manufacturer_name"></td>
@@ -11,7 +11,5 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6">
-    <div ui-view></div>
-  </div>
 </div>
+
