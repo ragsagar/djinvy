@@ -1,9 +1,5 @@
-require('ui-router')
 ngModule = angular.module('app', ['ui.router'])
 ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$interpolateProvider', ($httpProvider, $stateProvider, $urlRouterProvider, $interpolateProvider) ->
-
-        # Default URL
-        $urlRouterProvider.otherwise("/list");
 
         $stateProvider
                 .state 'inventory_list', {
@@ -16,6 +12,8 @@ ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$inte
                         controller: 'InventoryDetailCtrl',
                         templateUrl: '/static/angular/templates/inventory_item.html',
                         }
+        # Default URL
+        $urlRouterProvider.otherwise("/list");
 
         # Changing the template symbol to not conflic with django
         $interpolateProvider.startSymbol('<[');
@@ -44,27 +42,23 @@ ngModule.controller('InventoryListCtrl', ['$scope', 'InventoryModel', ($scope, I
                                 )
         getItems()
 
-        selectItem = (selected_item) ->
-                console.log(selected_item)
-                $scope.items.each((item) ->
+        $scope.selectItem = (selected_item) ->
+                for item in $scope.items
                         item.selected = false
                         item.selected = true if selected_item is item
-                        return
-                        )
                 return
 
         @
 ])
 
 ngModule.controller('InventoryDetailCtrl', ['$scope', '$stateParams', 'InventoryModel', ($scope, $stateParams, InventoryModel) ->
-        console.log "here"
         getItem = (item_pk) ->
                 InventoryModel.fetch(item_pk)
                         .then((result) ->
                                 $scope.item = result.data
                                 )
         getItem($stateParams.item)
-        return
+        @
 ])
         
 ngModule.service('InventoryModel', ['$http', ($http) ->
@@ -79,7 +73,7 @@ ngModule.service('InventoryModel', ['$http', ($http) ->
                 return $http.get(getUrl())
 
         @.fetch = (itemId) ->
-                return $http.get(getUrlForId(ItemId))
+                return $http.get(getUrlForId(itemId))
         @
 ])
 module.exports = ngModule

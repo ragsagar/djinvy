@@ -3,16 +3,7 @@
 {% block content %}
 <div class="row" ng-app="app">
   <div class="col-md-6">
-    <div ng-view>
-      <table class="table table-condensed table-striped" ng-controller="HomeCtrl">	<tbody>
-	  <tr ng-repeat="item in items">
-	    <td ng-bind="item.code"></td>
-	    <td ng-bind="item.description"></td>
-	    <td ng-bind="item.type_name"></td>
-	    <td ng-bind="item.manufacturer_name"></td>
-	  </tr>
-	</tbody>
-      </table>
+    <div ui-view>
     </div>
   </div>
 </div>
