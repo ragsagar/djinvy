@@ -1,14 +1,20 @@
 require('ui-router')
 ngModule = angular.module('app', ['ui.router'])
-ngModule.config ($httpProvider, $stateProvider, $urlRouterProvider, $interpolateProvider) ->
+ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$interpolateProvider', ($httpProvider, $stateProvider, $urlRouterProvider, $interpolateProvider) ->
 
         # Default URL
-        $urlRouterProvider.otherwise("/home");
+        $urlRouterProvider.otherwise("/list");
 
         $stateProvider
-                .state 'home', {
-                        url: '/home',
-                        controller: 'HomeCtrl',
+                .state 'inventory_list', {
+                        url: '/list',
+                        controller: 'InventoryListCtrl',
+                        templateUrl: '/static/angular/templates/list_inventory.html'
+                        }
+                .state 'inventory_list.item', {
+                        url: '/:item',
+                        controller: 'InventoryDetailCtrl',
+                        templateUrl: '/static/angular/templates/inventory_item.html',
                         }
 
         # Changing the template symbol to not conflic with django
@@ -25,24 +31,43 @@ ngModule.config ($httpProvider, $stateProvider, $urlRouterProvider, $interpolate
         # Global catching of ui error for dev
         # $rootScope.$on 'stateChangeError', (event, toState, toParams, fromState, fromParams, error) ->
                 # console.log(event, toState, toParams, fromState, fromParams, error)
-
+]
 
 ngModule.run () ->
 
-ngModule.controller('HomeCtrl', ($scope, InventoryModel) ->
+ngModule.controller('InventoryListCtrl', ['$scope', 'InventoryModel', ($scope, InventoryModel) ->
 
         getItems = () ->
                 InventoryModel.all()
                         .then((result) ->
-                                console.log(result)
                                 $scope.items = result.data
                                 )
         getItems()
-        
-        return null
-)
 
-ngModule.service('InventoryModel', ($http) ->
+        selectItem = (selected_item) ->
+                console.log(selected_item)
+                $scope.items.each((item) ->
+                        item.selected = false
+                        item.selected = true if selected_item is item
+                        return
+                        )
+                return
+
+        @
+])
+
+ngModule.controller('InventoryDetailCtrl', ['$scope', '$stateParams', 'InventoryModel', ($scope, $stateParams, InventoryModel) ->
+        console.log "here"
+        getItem = (item_pk) ->
+                InventoryModel.fetch(item_pk)
+                        .then((result) ->
+                                $scope.item = result.data
+                                )
+        getItem($stateParams.item)
+        return
+])
+        
+ngModule.service('InventoryModel', ['$http', ($http) ->
 
         getUrl = () ->
                 return '/inventory/items/'
@@ -52,7 +77,9 @@ ngModule.service('InventoryModel', ($http) ->
 
         @.all = () ->
                 return $http.get(getUrl())
-                
+
+        @.fetch = (itemId) ->
+                return $http.get(getUrlForId(ItemId))
         @
-)
+])
 module.exports = ngModule
