@@ -10,17 +10,17 @@ ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$inte
                 .state 'inventory.list', {
                         url: '/list',
                         controller: 'InventoryListCtrl',
-                        templateUrl: '/static/angular/templates/list_inventory.html'
+                        templateUrl: '/static/angular/templates/inventory.list.html'
                         }
                 .state 'inventory.create', {
                         url: '/create',
                         controller: 'CreateInventoryCtrl',
-                        templateUrl: '/static/angular/templates/inventory_create_form.html',
+                        templateUrl: '/static/angular/templates/inventory.create.html',
                         }
                 .state 'inventory.detail', {
                         url: '/:item',
                         controller: 'InventoryDetailCtrl',
-                        templateUrl: '/static/angular/templates/inventory_item.html',
+                        templateUrl: '/static/angular/templates/inventory.detail.html',
                         }
                 .state 'types', {
                         url: '/types',
@@ -30,7 +30,7 @@ ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$inte
                 .state 'types.list', {
                         url: '/list',
                         controller: 'TypeListCtrl',
-                        templateUrl: '/static/angular/templates/list_types.html',
+                        templateUrl: '/static/angular/templates/types.list.html',
                         }
         # Default URL
         $urlRouterProvider.otherwise("/items/list");
