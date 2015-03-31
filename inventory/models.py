@@ -37,7 +37,7 @@ class Manufacturer(models.Model):
 class InventoryItem(models.Model):
     """ Model to keep each inventory item. """
     created = models.DateTimeField(default=timezone.now)
-    code = models.CharField(max_length=255)
+    code = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     type = models.ForeignKey(InventoryType, related_name='inventory_items')
     manufacturer = models.ForeignKey(Manufacturer,
