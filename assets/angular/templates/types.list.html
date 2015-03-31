@@ -1,13 +1,28 @@
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-info">
-      <div class="panel-heading">Types</div>
+      <div class="panel-heading">Types
+      </div>
       <div class="panel-body">
 	<table class="table table-hover">
 	  <tbody>
-	    <tr ng-repeat="type in types" ng-click="selectItem(type)">
+	    <tr ng-repeat="type in types">
 	      <td ng-bind="type.pk"></td>
 	      <td ng-bind="type.name"></td>
+	    </tr>
+	    <tr>
+	      </td>
+	      <td>
+	      <td>
+		<div class="form-inline" ng-class="{'has-error': errors.type_form}">
+		  <input type="text" class="form-control" ng-model="form_data.name"/>
+
+		  <button class="btn btn-default btn-sm" ng-disabled="!form_data.name" ng-click="createType(form_data)">
+		    <span class="glyphicon glyphicon-ok"></span>
+		  </button>
+		  <span class="has-error help-block" ng-repeat="error in errors.type_form.name" ng-bind="error"></span>
+		</div>
+	      </td>
 	    </tr>
 	  </tbody>
 	</table>

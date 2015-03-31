@@ -27,6 +27,9 @@ module.exports = ['$http', ($http) ->
         @.get_types = ->
                 return $http.get(getTypesUrl())
 
+        @.create_type = (data) ->
+                return $http.post(getTypesUrl(), data)
+
         @.get_manufacturers = ->
                 return $http.get(getManufacturersUrl())
         @
