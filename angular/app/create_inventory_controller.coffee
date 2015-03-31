@@ -1,4 +1,5 @@
 module.exports = ['$scope', '$state', 'InventoryModel', ($scope, $state, InventoryModel) ->
+        $scope.errors = {}
 
         getTypes = ->
                 InventoryModel.get_types()
@@ -16,10 +17,16 @@ module.exports = ['$scope', '$state', 'InventoryModel', ($scope, $state, Invento
         
         $scope.submitForm = (item)->
                 InventoryModel.create(item)
-                        .then((result) ->
-                                console.log(result)
+                        .success((result) ->
                                 $state.go('inventory.list')
                                 )
+                        .error (result) ->
+                                $scope.errors = result
+                                
                 return
+
+        $scope.cancel = () ->
+                $state.go('inventory.list')
+                
         @
         ]
