@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-condensed table-striped table-hover">
+      <tbody>
+	<tr ng-repeat="type in types" ng-click="selectItem(type)">
+	  <td ng-bind="type.pk"></td>
+	  <td ng-bind="type.name"></td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
