@@ -1,24 +1,35 @@
-<table class="table table-condensed">
-  <tbody>
-    <tr>
-      <td>Code</td>
-      <td ng-bind="item.code"></td>
-    </tr>
-    <tr>
-      <td>Description</td>
-      <td ng-bind="item.description"></td>
-    </tr>
-    <tr>
-      <td>Type</td>
-      <td ng-bind="item.type_name"></td>
-    </tr>
-    <tr>
-      <td>Manufacturer</td>
-      <td ng-bind="item.manufacturer_name"></td>
-    </tr>
-    <tr>
-      <td>Created by</td>
-      <td ng-bind="item.created_by"></td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+	<a class="btn btn-info" ui-sref="inventory.list()"><span class="glyphicon glyphicon-th-list"></span> Back</a>
+      </div>
+      <div class="panel-body">
+	<table class="table table-condensed">
+	  <tbody>
+	    <tr>
+	      <td>Code</td>
+	      <td ng-bind="item.code"></td>
+	    </tr>
+	    <tr>
+	      <td>Description</td>
+	      <td ng-bind="item.description"></td>
+	    </tr>
+	    <tr>
+	      <td>Type</td>
+	      <td ng-bind="item.type_name"></td>
+	    </tr>
+	    <tr>
+	      <td>Manufacturer</td>
+	      <td ng-bind="item.manufacturer_name"></td>
+	    </tr>
+	    <tr>
+	      <td>Created by</td>
+	      <td ng-bind="item.created_by"></td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+    </div>
+  </div>
+</div>

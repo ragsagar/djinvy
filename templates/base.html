@@ -19,14 +19,20 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body ng-app="app">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
 	<div class="navbar-header">
 	  <a class="navbar-brand" href="#">
-            <img alt="Brand" src="...">
+	    <span class="glyphicon glyphicon-tasks"></span>
 	  </a>
 	</div>
+	<a class="btn btn-default navbar-btn" ui-sref="inventory.list()">
+	  <span class="glyphicon glyphicon-th-list"></span> Inventory
+	</a>
+	<a class="btn btn-default navbar-btn" ui-sref="types.list()">
+	  <span class="glyphicon glyphicon-th-list"></span> Types
+	</a>
       </div>
     </nav>
     <div class="container-fluid">

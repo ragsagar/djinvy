@@ -1,16 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row" ng-app="app">
+<div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-	<a ui-sref="inventory_list()">Listing</a>
-	<a ui-sref="create_inventory()">Create</a>
-      </div>
-      <div ui-view class="slide">
-      </div>
-    </div>
+    <div ui-view></div>
   </div>
 </div>
 {% endblock %}

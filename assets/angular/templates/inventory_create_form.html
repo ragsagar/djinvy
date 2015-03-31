@@ -10,7 +10,7 @@
       <div class="form-group">
 	<label for="type_input" class="col-md-4 control-label">Type</label>
 	<div class="col-md-6">
-	  <input type="text" class="form-control input-block" id="type_input" ng-model="item.type" placeholder="Pant">
+	  <select ng-options="type.pk as type.name for type in types" class="form-control" id="type_input" ng-model="item.type"></select>
 	</div>
       </div>
       <div class="form-group">
@@ -28,7 +28,7 @@
       <div class="form-group">
 	<label for="manufacturer_input" class="col-md-4 control-label">Manufacturer</label>
 	<div class="col-md-6">
-	  <input type="text" class="form-control input-block" id="manufacturer_input" ng-model="item.manufacturer" placeholder="Vimal">
+	  <select ng-options="mf.pk as mf.name for mf in manufacturers" class="form-control" id="manufacturer_input" ng-model="item.manufacturer"></select>
 	</div>
       </div>
       <div class="form-group">
