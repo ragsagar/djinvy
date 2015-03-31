@@ -1,18 +1,33 @@
 module.exports = ['$http', ($http) ->
 
-        getUrl = ->
+        getItemsUrl = ->
                 return '/inventory/items/'
 
-        getUrlForId = (itemId) ->
-                return getUrl() + itemId
+        getItemsUrlForId = (itemId) ->
+                return getItemsUrl() + itemId
+
+        getTypesUrl = ->
+                return '/inventory/types/'
+
+        getManufacturersUrl = ->
+                return '/inventory/manufacturers/'
+
+        getTypesUrlForId = (itemId) ->
+                return getTypesUrl() + itemId
 
         @.all = ->
-                return $http.get(getUrl())
+                return $http.get(getItemsUrl())
 
         @.fetch = (itemId) ->
-                return $http.get(getUrlForId(itemId))
+                return $http.get(getItemsUrlForId(itemId))
 
         @.create = (data) ->
-                return $http.post(getUrl(), data)
+                return $http.post(getItemsUrl(), data)
+
+        @.get_types = ->
+                return $http.get(getTypesUrl())
+
+        @.get_manufacturers = ->
+                return $http.get(getManufacturersUrl())
         @
         ]
