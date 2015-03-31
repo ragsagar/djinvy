@@ -5,7 +5,7 @@ ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$inte
                 .state 'inventory', {
                         url: '/items',
                         abstract: true,
-                        template: '<div ui-view></div>'
+                        template: '<div ui-view class="slide"></div>'
                         }
                 .state 'inventory.list', {
                         url: '/list',
