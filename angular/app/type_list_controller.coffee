@@ -12,9 +12,8 @@ module.exports = ['$scope', '$stateParams', 'InventoryModel', ($scope, $statePar
         $scope.createType = (data) ->
                 InventoryModel.create_type(data)
                         .success((result) ->
-                                type = angular.copy result.data
-                                $scope.types.push(type)
-                                data.name = ''
+                                $scope.types.push(result.data)
+                                $scope.type_form.name = ''
                                 )
                         .error((result) ->
                                 $scope.errors.type_form = result
