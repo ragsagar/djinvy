@@ -17,6 +17,13 @@ class InventoryItemSerializer(serializers.ModelSerializer):
 
 
 class InventoryTypeSerializer(serializers.ModelSerializer):
+
+    def validate_name(self, value):
+        if InventoryType.objects.filter(name__iexact=value):
+            raise serializers.ValidationError(
+                "Type with same name already exists. Please check again")
+        return value
+    
     class Meta:
         model = InventoryType
         fields = ['name', 'created', 'created_by', 'pk']
