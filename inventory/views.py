@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth import login
 
 from braces.views import LoginRequiredMixin
+from rest_framework import status
 from rest_framework.generics import (RetrieveUpdateDestroyAPIView,
                                      ListCreateAPIView)
+from rest_framework.response import Response
+from rest_auth.views import Login
+from rest_auth.serializers import UserDetailsSerializer
 
 from .models import (InventoryItem, InMovement, OutMovement, Manufacturer,
                      InventoryType)
@@ -11,6 +16,19 @@ from .serializers import (InventoryItemSerializer, InMovementSerializer,
                           OutMovementSerializer, InventoryTypeSerializer,
                           ManufacturerSerializer)
 
+class LoginAPIView(Login):
+    response_serializer = UserDetailsSerializer
+    
+    def login(self):
+        """ Overriding to avoid creation of token. """
+        self.user = self.serializer.validated_data['user']
+        self.token = self.user
+        login(self.request, self.user)
+
+    def get_response(self):
+        """ Return the user serialized data. """
+        return Response(self.response_serializer(self.user).data,
+                        status=status.HTTP_200_OK)
 
 class InventoryHomeView(TemplateView):
     """ View that will render inventory home template. """

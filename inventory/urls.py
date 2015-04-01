@@ -4,13 +4,16 @@ from .views import (InventoryItemListAPIView, InventoryItemDetailAPIView,
                     InMovementListAPIView, OutMovementListAPIView,
                     InventoryTypeListAPIView, InventoryTypeDetailAPIView,
                     ManufacturerListAPIView, ManufacturerDetailAPIView,
-                    InventoryHomeView)
+                    InventoryHomeView, LoginAPIView)
 
 
 urlpatterns = patterns('',
                        url(r'^$',
                            InventoryHomeView.as_view(),
                            name='inventory_home'),
+                       url(r'^auth/login$',
+                           LoginAPIView.as_view(),
+                           name='login_api'),
                        url(r'^items/$',
                            InventoryItemListAPIView.as_view(),
                            name='inventory_items_api'),
