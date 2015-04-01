@@ -1,4 +1,5 @@
 var angular = require('angular')
 require('ui-router')
 require('angular-animate')
+require('angular-bootstrap')
 var ngModule = require('./app.coffee')
