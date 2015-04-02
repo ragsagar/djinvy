@@ -58,17 +58,24 @@ ngModule.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$inte
                 # console.log(event, toState, toParams, fromState, fromParams, error)
 ]
 
-ngModule.run ['$rootScope', '$state', 'LoginModal', ($rootScope, $state, LoginModal) ->
+ngModule.run ['$rootScope', '$state', 'LoginModal', 'LoginApi', ($rootScope, $state, LoginModal, LoginApi) ->
         $rootScope.$on('$stateChangeStart', (event, toState, toParams) ->
                 requireLogin = toState.data.requireLogin
                 if requireLogin and not $rootScope.currentUser?
                         event.preventDefault
-                        LoginModal()
-                                .then(() ->
+                        LoginApi.getUser()
+                                .success((response) ->
+                                        $rootScope.currentUser = response
                                         $state.go toState.name, toParams
-                                ).catch(() ->
-                                        $state.go 'types.list'
-                                )
+                                        )
+                                .error((response) ->
+                                        LoginModal()
+                                                .then(() ->
+                                                        $state.go toState.name, toParams
+                                                ).catch(() ->
+                                                        $state.go 'types.list'
+                                                )
+                                        )
                 return
                 )
         return
