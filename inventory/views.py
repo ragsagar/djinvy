@@ -5,8 +5,10 @@ from django.contrib.auth import login
 from braces.views import LoginRequiredMixin
 from rest_framework import status
 from rest_framework.generics import (RetrieveUpdateDestroyAPIView,
-                                     ListCreateAPIView)
+                                     ListCreateAPIView,
+                                     RetrieveAPIView)
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_auth.views import Login
 from rest_auth.serializers import UserDetailsSerializer
 
@@ -29,6 +31,14 @@ class LoginAPIView(Login):
         """ Return the user serialized data. """
         return Response(self.response_serializer(self.user).data,
                         status=status.HTTP_200_OK)
+
+class GetCurrentUserAPIView(RetrieveAPIView):
+    """ Return current logged in user details. """
+    serializer_class = UserDetailsSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def get_object(self):
+        return self.request.user
 
 class InventoryHomeView(TemplateView):
     """ View that will render inventory home template. """
